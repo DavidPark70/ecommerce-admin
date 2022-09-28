@@ -1,11 +1,19 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/apiCalls';
+import { Redirect } from 'react-router-dom';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
+    const user = useSelector((state) => state.user);
+
+    if (user?.currentUser?._id) {
+        return (
+            <Redirect to='/' />
+        );
+    }
 
     const handleClick = (e) => {
         e.preventDefault();
